@@ -18,6 +18,9 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
+gem 'omniauth', '~> 1.9.1'
+gem 'omniauth-github', '~> 1.4.0'
+gem 'omniauth-rails_csrf_protection', '~> 0.1.2'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
