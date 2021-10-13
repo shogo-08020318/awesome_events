@@ -28,6 +28,8 @@ module AwesomeEvents
       g.helper false
       g.test_framework false
       g.skip_routes true
+
+      config.time_zome = 'Tokyo'
     end
   end
 end
