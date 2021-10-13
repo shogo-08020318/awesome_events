@@ -13,6 +13,11 @@ class Event < ApplicationRecord
     # 開始日と終了日が存在しなければ、returnが実行される
     # unlessは, trueがfalse、falseがtrue
     return unless start_at && end_at
+    # 上記と等価
+    # unless start_at && end_at
+    #   return
+    # end
+
     # return if !(start_at && end_at)
     # return unless true => false
     # return if start_at.blank? || end_at.blank?
