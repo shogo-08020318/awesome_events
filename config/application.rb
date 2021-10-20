@@ -30,6 +30,7 @@ module AwesomeEvents
       g.skip_routes true
 
       config.time_zome = 'Tokyo'
+      config.i18n.default_locale =:ja
     end
   end
 end
