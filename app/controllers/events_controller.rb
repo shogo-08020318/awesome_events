@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  skip_before_action :authenticate, only: :show
   def new
     @event = current_user.created_events.build
   end
@@ -7,6 +8,10 @@ class EventsController < ApplicationController
     @event = current_user.created_events.build(event_params)
 
     redirect_to @event, notice: '作成したンゴよ〜' if @event.save
+  end
+
+  def show
+    @event = Event.find(params[:id])
   end
 
   private
