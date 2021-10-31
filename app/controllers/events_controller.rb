@@ -10,6 +10,10 @@ class EventsController < ApplicationController
     redirect_to @event, notice: '作成したンゴよ〜' if @event.save
   end
 
+  # def edit
+  #   @event = current_user.created_events.find(params[:id])
+  # end
+
   def show
     @event = Event.find(params[:id])
   end
