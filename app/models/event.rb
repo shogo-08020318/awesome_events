@@ -1,5 +1,11 @@
 class Event < ApplicationRecord
+  # event.rbの場合
+  # アソシエーション :関連付け名, class_name: クラス名
+  # eventモデルはuserモデルと「user」という関連付けの名前で紐づく
+  # bolongs_to :user, class_name: 'User'
+  # eventモデルはuserモデルと「owner」という関連付けの名前で紐づく
   belongs_to :owner, class_name: "User"
+  # こっちが子供、親のDNAを受け継いだファイル
 
   validates :name, length: { maximum: 50 }, presence: true
   validates :place, length: { maximum: 100 }, presence: true
@@ -7,6 +13,15 @@ class Event < ApplicationRecord
   validates :start_at, presence: true
   validates :end_at, presence: true
   validate :start_at_should_be_before_end_at
+
+  def created_by?(user)
+    return false unless user
+    # unlessは, trueがfalse、falseがtrue
+    # return false if user.nil?でもOK
+    # owner_idはeventのカラム。schemaをみれば一目瞭然。
+    owner_id == user.id
+              # user&.id
+  end
 
   private
 
