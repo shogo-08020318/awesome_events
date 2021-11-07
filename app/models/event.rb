@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   # eventモデルはuserモデルと「owner」という関連付けの名前で紐づく
   belongs_to :owner, class_name: "User"
   # こっちが子供、親のDNAを受け継いだファイル
+  has_many :tickets
 
   validates :name, length: { maximum: 50 }, presence: true
   validates :place, length: { maximum: 100 }, presence: true
