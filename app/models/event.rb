@@ -4,9 +4,10 @@ class Event < ApplicationRecord
   # eventモデルはuserモデルと「user」という関連付けの名前で紐づく
   # bolongs_to :user, class_name: 'User'
   # eventモデルはuserモデルと「owner」という関連付けの名前で紐づく
-  belongs_to :owner, class_name: "User"
+  belongs_to :owner, class_name: 'User'
   # こっちが子供、親のDNAを受け継いだファイル
-  has_many :tickets
+
+  has_many :tickets, dependent: :destroy
 
   validates :name, length: { maximum: 50 }, presence: true
   validates :place, length: { maximum: 100 }, presence: true
@@ -17,11 +18,12 @@ class Event < ApplicationRecord
 
   def created_by?(user)
     return false unless user
+
     # unlessは, trueがfalse、falseがtrue
     # return false if user.nil?でもOK
     # owner_idはeventのカラム。schemaをみれば一目瞭然。
     owner_id == user.id
-              # user&.id
+    # user&.id
   end
 
   private
@@ -31,6 +33,7 @@ class Event < ApplicationRecord
     # 開始日と終了日が存在しなければ、returnが実行される
     # unlessは, trueがfalse、falseがtrue
     return unless start_at && end_at
+
     # 上記と等価
     # unless start_at && end_at
     #   return
@@ -41,8 +44,6 @@ class Event < ApplicationRecord
     # return if start_at.blank? || end_at.blank?
 
     # 開始日と終了日を比較
-    if start_at >= end_at
-      errors.add(:start_at, "は終了時間よりも前に設定してください")
-    end
+    errors.add(:start_at, 'は終了時間よりも前に設定してください') if start_at >= end_at
   end
 end
